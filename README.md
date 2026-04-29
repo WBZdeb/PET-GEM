@@ -1,1 +1,1 @@
-# PET-GEM—PET Geometric Efficiency Modelling
+# PET-GEM: Geometric Efficiency Modelling for PET Detector Systems
