@@ -112,14 +112,13 @@ class _BaseDetector(ABC):
         """
 
         r = self._dist_vector(surface_coords, source_pos)
-        r_len = float(np.linalg.norm(r))
+        r_len = np.linalg.norm(r)
+        n = self._surface_normal(surface_coords)
 
         if r_len == 0.0:
             return 0.0
 
-        n = self._surface_normal(surface_coords)
-
-        return float(np.dot(r, n)) / (r_len ** 3.0)
+        return np.dot(r, n) / (r_len ** 3.0)
 
     def geometric_efficiency(self, source_pos: Point3D, emission: EmissionModel) -> float:
         """

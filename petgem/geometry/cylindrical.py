@@ -121,7 +121,7 @@ class CylindricalDetector(_BaseDetector):
             0.0
         ])
 
-    def _integrand_wrapper(self, z: float, theta: float, source_pos: Point3D) -> float:
+    def _integrand_wrapper(self, theta: float, z: float, source_pos: Point3D) -> float:
         """
         Wrapper adapting cylindrical surface coordinates to scipy integration
         conventions.
