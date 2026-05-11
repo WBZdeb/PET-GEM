@@ -164,7 +164,7 @@ class DualHeadDetector(_BaseDetector):
             0.0
         ])
 
-    def _integrand_wrapper(self, z: float, x: float, source_pos: Point3D, y_coord: float) -> float:
+    def _integrand_wrapper(self, x: float, z: float, source_pos: Point3D, y_coord: float) -> float:
         """
         Wrapper adapting planar surface coordinates to scipy integration conventions.
         """
