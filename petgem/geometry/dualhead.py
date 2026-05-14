@@ -5,6 +5,7 @@ This module provides a class describing idealized dual-head detector geometry
 used in geometric efficiency modeling. Geometric parameters are represented in an
 arbitrary but internally consistent length scale unless stated otherwise.
 """
+from typing import Tuple
 
 import numpy as np
 from scipy.integrate import dblquad
@@ -99,7 +100,7 @@ class DualHeadDetector(_BaseDetector):
 
         self._axial_fov = axial_fov
 
-    def get_fov(self) -> tuple[float, float]:
+    def get_fov(self) -> Tuple[float, float]:
         """
         Return the detector field-of-view dimensions.
 
