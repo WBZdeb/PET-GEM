@@ -49,10 +49,11 @@ class CylindricalDetector(_BaseDetector):
                 Must use the same length unit as inner_radius.
         """
 
-        self._inner_radius = inner_radius
-        self._afov = afov
+        self.inner_radius = inner_radius
+        self.afov = afov
 
-    def get_inner_radius(self) -> float:
+    @property
+    def inner_radius(self) -> float:
         """
         Return the detector inner radius.
 
@@ -62,7 +63,8 @@ class CylindricalDetector(_BaseDetector):
 
         return self._inner_radius
 
-    def set_inner_radius(self, inner_radius: float) -> None:
+    @inner_radius.setter
+    def inner_radius(self, inner_radius: float) -> None:
         """
         Set the detector inner radius.
 
@@ -70,10 +72,13 @@ class CylindricalDetector(_BaseDetector):
             inner_radius (float): New characteristic inner radius in the
                 same length scale used by the detector model.
         """
+        if inner_radius <= 0.0:
+            raise ValueError("Inner radius must be positive.")
 
         self._inner_radius = inner_radius
 
-    def get_afov(self) -> float:
+    @property
+    def afov(self) -> float:
         """
         Return the detector axial field-of-view.
 
@@ -83,7 +88,8 @@ class CylindricalDetector(_BaseDetector):
 
         return self._afov
 
-    def set_afov(self, afov: float) -> None:
+    @afov.setter
+    def afov(self, afov: float) -> None:
         """
         Set the detector axial field-of-view.
 
@@ -91,6 +97,8 @@ class CylindricalDetector(_BaseDetector):
             afov (float): New axial field-of-view parameter in the same
                 length scale used by the detector model.
         """
+        if afov <= 0.0:
+            raise ValueError("Axial field-of-view must be positive.")
 
         self._afov = afov
 

@@ -54,11 +54,12 @@ class DualHeadDetector(_BaseDetector):
                 Must use the same length unit as transaxial_fov.
         """
 
-        self._transaxial_fov = transaxial_fov
-        self._axial_fov = axial_fov
-        self._head_separation = head_separation
+        self.transaxial_fov = transaxial_fov
+        self.axial_fov = axial_fov
+        self.head_separation = head_separation
 
-    def get_transaxial_fov(self) -> float:
+    @property
+    def transaxial_fov(self) -> float:
         """
         Return the transaxial field-of-view of the detector.
 
@@ -68,7 +69,8 @@ class DualHeadDetector(_BaseDetector):
 
         return self._transaxial_fov
 
-    def set_transaxial_fov(self, transaxial_fov: float) -> None:
+    @transaxial_fov.setter
+    def transaxial_fov(self, transaxial_fov: float) -> None:
         """
         Set the transaxial field-of-view of the detector.
 
@@ -76,10 +78,13 @@ class DualHeadDetector(_BaseDetector):
             transaxial_fov (float): New transaxial field-of-view extent,
                 expressed in the detector's internal length scale.
         """
+        if transaxial_fov <= 0:
+            raise ValueError("Transaxial fov must be positive.")
 
         self._transaxial_fov = transaxial_fov
 
-    def get_axial_fov(self) -> float:
+    @property
+    def axial_fov(self) -> float:
         """
         Return the axial field-of-view of the detector.
 
@@ -89,7 +94,8 @@ class DualHeadDetector(_BaseDetector):
 
         return self._axial_fov
 
-    def set_axial_fov(self, axial_fov: float) -> None:
+    @axial_fov.setter
+    def axial_fov(self, axial_fov: float) -> None:
         """
         Set the axial field-of-view of the detector.
 
@@ -97,10 +103,13 @@ class DualHeadDetector(_BaseDetector):
             axial_fov (float): New axial field-of-view extent,
                 expressed in the detector's internal length scale.
         """
+        if axial_fov <= 0:
+            raise ValueError("Axial fov must be positive.")
 
         self._axial_fov = axial_fov
 
-    def get_fov(self) -> Tuple[float, float]:
+    @property
+    def fov(self) -> Tuple[float, float]:
         """
         Return the detector field-of-view dimensions.
 
@@ -108,20 +117,21 @@ class DualHeadDetector(_BaseDetector):
             tuple[float, float]: Two-element tuple containing the transaxial and
                 axial field-of-view parameter, respectively.
         """
-        return self._transaxial_fov, self._axial_fov
+        return self.transaxial_fov, self.axial_fov
 
-    def set_fov(self, transaxial_fov: float, axial_fov: float) -> None:
+    @fov.setter
+    def fov(self, fov: Tuple[float, float]) -> None:
         """
         Set the detector field-of-view dimensions.
 
         Args:
-            transaxial_fov (float): Transaxial field-of-view parameter.
-            axial_fov (float): Axial field-of-view parameter.
+            fov (Tuple[float, float]): A tuple representing transaxial and axial
+                field-of-view parameters, in that order.
         """
-        self._transaxial_fov = transaxial_fov
-        self._axial_fov = axial_fov
+        self.transaxial_fov, self.axial_fov = fov
 
-    def get_head_separation(self) -> float:
+    @property
+    def head_separation(self) -> float:
         """
         Return the detector field-of-view dimensions.
 
@@ -130,13 +140,17 @@ class DualHeadDetector(_BaseDetector):
         """
         return self._head_separation
 
-    def set_head_separation(self, head_separation: float) -> None:
+    @head_separation.setter
+    def head_separation(self, head_separation: float) -> None:
         """
         Set the distance between heads of the detector.
 
         Args:
             head_separation (float): Distance between heads of the detector.
         """
+        if head_separation <= 0:
+            raise ValueError("Head separation must be positive.")
+
         self._head_separation = head_separation
 
     def _dist_vector(self, surface_coords: PlaneCoords, source_pos: Point3D) -> Vector3D:
