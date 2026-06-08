@@ -240,7 +240,7 @@ class DualHeadDetector(_BaseDetector):
             float: Geometric detection efficiency for single-photon emission.
         """
         plane_up = dblquad(
-            self._integrand,
+            self._integrand_wrapper,
             -self._axial_fov / 2,
             self._axial_fov / 2,
             -self._transaxial_fov / 2,
@@ -248,7 +248,7 @@ class DualHeadDetector(_BaseDetector):
             args=(source_pos, self._head_separation / 2,)
         )[0]
         plane_down = dblquad(
-            self._integrand,
+            self._integrand_wrapper,
             -self._axial_fov / 2,
             self._axial_fov / 2,
             -self._transaxial_fov / 2,
@@ -284,7 +284,7 @@ class DualHeadDetector(_BaseDetector):
             self._axial_fov
         )
         plane_up = dblquad(
-            self._integrand,
+            self._integrand_wrapper,
             z_min,
             z_max,
             x_min,
@@ -300,7 +300,7 @@ class DualHeadDetector(_BaseDetector):
             self._axial_fov
         )
         plane_down = dblquad(
-            self._integrand,
+            self._integrand_wrapper,
             z_min,
             z_max,
             x_min,
